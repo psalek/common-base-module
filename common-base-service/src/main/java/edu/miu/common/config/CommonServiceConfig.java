@@ -11,12 +11,13 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 public class CommonServiceConfig {
 	
 	@Bean
-	public RestTemplate restTemplate() {
+	//@LoadBalanced
+	RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
 	
 	@Bean
-	public MapperFactory mapperFactory() {
+	MapperFactory mapperFactory() {
 		return new DefaultMapperFactory.Builder().build();
 	}
 

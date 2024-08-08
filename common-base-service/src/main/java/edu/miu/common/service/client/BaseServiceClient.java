@@ -12,7 +12,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * <h1>Maharishi University of Management<br/>Computer Science Department</h1>
+ * <h1>Maharishi International University<br/>Computer Science Department</h1>
  * 
  * <p>Generic service client. To be completed...</p>
  *

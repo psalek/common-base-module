@@ -2,6 +2,7 @@ package edu.miu.common.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import edu.miu.common.repository.search.SpecificationBuilder;
 import edu.miu.common.service.mapper.BaseMapper;
 
 /**
- * <h1>Maharishi University of Management<br/>Computer Science Department</h1>
+ * <h1>Maharishi International University<br/>Computer Science Department</h1>
  * 
  * <p>See {@link BaseReadService}.</p>
  *
@@ -37,14 +38,13 @@ public abstract class BaseReadServiceImpl<R extends Serializable, T, I> implemen
 	protected BaseMapper<T, R> responseMapper;
 	
 	@Override
-	public R findById(I id) throws ResourceNotFoundException {
-		T entity = baseRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
-		return responseMapper.map(entity);
+	public R findById(I id) {
+		return convert(baseRepository.findById(id).orElseThrow(ResourceNotFoundException::new));
 	}
 	
 	@Override
 	public List<R> findAll() {
-		return convertEntityListToResponseList(baseRepository.findAll());		
+		return convert(baseRepository.findAll());		
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public abstract class BaseReadServiceImpl<R extends Serializable, T, I> implemen
 
 	@Override
 	public List<R> search(String query) {
-		return convertEntityListToResponseList(baseRepository.findAll(new SpecificationBuilder<T>(query).build()));		
+		return convert(baseRepository.findAll(new SpecificationBuilder<T>(query).build()));		
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public abstract class BaseReadServiceImpl<R extends Serializable, T, I> implemen
 	}
 
 	@Override
-	public R convertEntityToResponse(T entity) {
+	public R convert(T entity) {
 		if(null == entity) {
 			return null;
 		}
@@ -81,9 +81,14 @@ public abstract class BaseReadServiceImpl<R extends Serializable, T, I> implemen
 			return responseMapper.map(entity);
 		}
 	}
-
+	
 	@Override
-	public List<R> convertEntityListToResponseList(List<T> entityList) {
+	public R convert(Optional<T> entity) {
+		return convert(entity.orElseThrow(ResourceNotFoundException::new));
+	}
+	
+	@Override
+	public List<R> convert(List<T> entityList) {
 		if(null == entityList) {
 			return null;
 		}
@@ -91,17 +96,35 @@ public abstract class BaseReadServiceImpl<R extends Serializable, T, I> implemen
 			return entityList.stream()
 					.map(responseMapper::map)
 					.collect(Collectors.toList());
-		}
+		}		
 	}
-
+	
 	@Override
-	public Page<R> convertEntityPageToResponsePage(Page<T> entityPage) {
+	public Page<R> convert(Page<T> entityPage) {
 		if(null == entityPage) {
 			return null;
 		}
 		else {
 			return entityPage.map(responseMapper::map);
 		}
+	}
+	
+	@Override
+	@Deprecated
+	public R convertEntityToResponse(T entity) {
+		return convert(entity);
+	}
+
+	@Override
+	@Deprecated
+	public List<R> convertEntityListToResponseList(List<T> entityList) {
+		return convert(entityList);
+	}
+
+	@Override
+	@Deprecated
+	public Page<R> convertEntityPageToResponsePage(Page<T> entityPage) {
+		return convert(entityPage);
 	}
 	
 }

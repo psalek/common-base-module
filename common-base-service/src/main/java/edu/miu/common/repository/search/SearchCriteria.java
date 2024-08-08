@@ -3,7 +3,7 @@ package edu.miu.common.repository.search;
 import java.io.Serializable;
 
 /**
- * <h1>Maharishi University of Management<br/>Computer Science Department</h1>
+ * <h1>Maharishi International University<br/>Computer Science Department</h1>
  * 
  * <p>This is loaded from the incoming query string. Used for basic search of REST resources. 
  * See {@link EntitySpecification} for the list of allowable operations.</p>

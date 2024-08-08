@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
- * <h1>Maharishi University of Management<br/>Computer Science Department</h1>
+ * <h1>Maharishi International University<br/>Computer Science Department</h1>
  * 
  * <p>Uses pattern matching and regular expressions to extract the list of {@link SearchCriteria} 
  * from the incoming query.</p>

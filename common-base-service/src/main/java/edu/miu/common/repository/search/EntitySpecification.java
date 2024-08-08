@@ -1,14 +1,14 @@
 package edu.miu.common.repository.search;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
 /**
- * <h1>Maharishi University of Management<br/>Computer Science Department</h1>
+ * <h1>Maharishi International University<br/>Computer Science Department</h1>
  * 
  * <p>Reacts to a {@link SearchCriteria} and adds it to the {@link CriteriaBuilder}.</p>
  *

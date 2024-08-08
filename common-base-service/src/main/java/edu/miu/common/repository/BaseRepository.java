@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
 /**
- * <h1>Maharishi University of Management<br/>Computer Science Department</h1>
+ * <h1>Maharishi International University<br/>Computer Science Department</h1>
  * 
  * <p>Using Spring Data JPA, provides basic CRUD operations (through {@link JpaRepository}) 
  * and search functionality (through {@link JpaSpecificationExecutor}).</p>

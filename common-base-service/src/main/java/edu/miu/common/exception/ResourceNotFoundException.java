@@ -1,7 +1,7 @@
 package edu.miu.common.exception;
 
 /**
- * <h1>Maharishi University of Management<br/>Computer Science Department</h1>
+ * <h1>Maharishi International University<br/>Computer Science Department</h1>
  * 
  * <p>This exception is thrown when a resource cannot be found. 
  * This should result in an HTTP 400 level error. Extends {@link Exception} functionality.</p>
@@ -12,8 +12,16 @@ package edu.miu.common.exception;
  * @since 1.0.0
  * 
  */
-public class ResourceNotFoundException extends Exception {
+public class ResourceNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
+
+	public ResourceNotFoundException() {
+		super();
+	}
+
+	public ResourceNotFoundException(String message) {
+		super(message);
+	}
 
 }

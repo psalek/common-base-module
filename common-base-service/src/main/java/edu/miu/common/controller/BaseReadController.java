@@ -1,10 +1,12 @@
 package edu.miu.common.controller;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,14 +16,14 @@ import edu.miu.common.exception.ResourceNotFoundException;
 import edu.miu.common.service.BaseReadService;
 
 /**
- * <h1>Maharishi University of Management<br/>Computer Science Department</h1>
+ * <h1>Maharishi International University<br/>Computer Science Department</h1>
  * 
  * <p>Provides basic read and search capabilities over a resource (type T with an ID of type I) 
  * and returns the response type of R. See {@link BaseReadService} for more info.</p>
  *
  * @author Payman Salek
  * 
- * @version 1.0.0
+ * @version 2.0.0
  * @since 1.0.0
  * 
  */
@@ -32,8 +34,8 @@ public abstract class BaseReadController<R, T, I> {
 	private BaseReadService<R, T, I> baseService; 
 	
 	@GetMapping("/{id}")
-	public R findById(@PathVariable I id) throws ResourceNotFoundException {
-		return baseService.findById(id);
+	public ResponseEntity<?> findById(@PathVariable I id) {
+		return response(() -> baseService.findById(id));
 	}
 	
 	@GetMapping
@@ -64,6 +66,15 @@ public abstract class BaseReadController<R, T, I> {
 	@GetMapping(value = "/search", params = "fetch-all=true")
 	public List<R> search(@RequestParam(value = "query") String query) {
 		return baseService.search(query);
+	}
+	
+	protected ResponseEntity<?> response(Supplier<R> supplier) {
+		try {
+			return ResponseEntity.ok(supplier.get());
+		}
+		catch(ResourceNotFoundException exception) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 }
